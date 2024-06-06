@@ -59,7 +59,7 @@ mount: (hint) your fstab has been modified, but systemd still uses
 
 ### Troubleshooting "User CIFS Not Supported" error
 If you encounter this error:
-<p align="center"><img src="./images/user_cifs_not_supported_error.png" title="" alt="user_cifs_error_message"></p>
+<p><img src="./images/user_cifs_not_supported_error.png" title="" alt="user_cifs_error_message"></p>
 
 Change the following settings:
 

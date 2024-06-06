@@ -27,21 +27,14 @@ server smb encrypt = required
 <p align="center"><img src="./images/unraid_smb_extra_settings.png" title="" alt="unraid_smb_extra_settings"></p>
 
 # Create separate unprivileged users with passwords for accessing shares
-<p align="center"><img src="./images/unraid_unprivileged_users.png" title="" alt="unraid_unprivileged_users"></p>
-
-
-
-# 
-
+<p align="center"><img src="./images/unraid_unprivileged_users.png" title="" alt="unraid_unprivileged_users"></p> 
 
 
 ### Additional notes
 Check samba version:
 `smbd -V` or `smbstatus -V`
 
-Might not work with iOS
+** These settings might not work with iOS
 
 
 ** Primary source: [SMB Hardening - Unraid Forums](https://forums.unraid.net/topic/119205-guide-how-to-harden-the-security-configuration-of-smb-on-an-unraid-sever/)
-
-Samba official latest guide

@@ -37,7 +37,7 @@ password=myunraiduserpassword
 `sudo nano /etc/fstab` 
 
 #### Add entry
-`//tower.local/sharename /media/sharedfolder cifs credentials=/home/ubuntuusername/.smbcredentials 0 0`
+`//tower.local/sharename /media/sharedfolder cifs uid=linuxusername,credentials=/home/ubuntuusername/.smbcredentials 0 0`
 (change to selected server name or put in IP address)
 
 #### Save
@@ -59,7 +59,7 @@ mount: (hint) your fstab has been modified, but systemd still uses
 
 ### Troubleshooting "User CIFS Not Supported" error
 If you encounter this error:
-<p><img src="./images/user_cifs_not_supported_error.png" title="" alt="user_cifs_error_message"></p>
+<p align="center"><img src="./images/user_cifs_not_supported_error.png" title="" alt="user_cifs_error_message"></p>
 
 Change the following settings:
 
@@ -70,10 +70,13 @@ sudo chmod u+s /usr/sbin/mount.cifs
 ```
 
 
-* You can mount unprotected (guest) folders via the original guide below
+#### ** You can mount unprotected (guest) folders via the original guide below(not applicable if you have hardened your samba settings)
+
+## SystemD Method
+
 
 Source of notes: 
-[Mounting CIFS Shares Permanently](https://ubuntu.com/server/docs/how-to-mount-cifs-shares-permanently)
-["user" CIFS mounts not supported error](https://discussion.fedoraproject.org/t/suddenly-user-cifs-mounts-not-supported/78652)
-[Systemd Mount](https://discussion.fedoraproject.org/t/suddenly-user-cifs-mounts-not-supported/78652/11)
+* [Mounting CIFS Shares Permanently](https://ubuntu.com/server/docs/how-to-mount-cifs-shares-permanently)
+* ["user" CIFS mounts not supported error](https://discussion.fedoraproject.org/t/suddenly-user-cifs-mounts-not-supported/78652)
+* [Systemd Mount](https://discussion.fedoraproject.org/t/suddenly-user-cifs-mounts-not-supported/78652/11)
 

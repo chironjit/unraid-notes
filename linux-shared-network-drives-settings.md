@@ -49,6 +49,13 @@ password=myunraiduserpassword
 ### Mount folder
 `sudo mount /media/sharedfolder`
 
+or to mount all folders at once:
+
+`sudo mount -a`
+
+### To unmount via shell
+`sudo umount /media/sharedfolder` 
+
 ** Might get this on Fedora:
 
 ```

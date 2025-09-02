@@ -14,7 +14,12 @@ Additional notes:
 ---
 
 ## Common steps
-### Step 1: Create mount directories
+### Step 1: Install CIFS Utils package
+
+Ubuntu: `sudo apt install cifs-utils`
+Fedora: `sudo dnf install cifs-utils`
+
+### Step 2: Create mount directories
 
 For each folder you want to mount, create the mount folder. You can use media or home(`/home/<your_linux_username>`) folder for example as the root folder for your shares as an option:
 
@@ -23,7 +28,7 @@ For each folder you want to mount, create the mount folder. You can use media or
 for example, you can have it as:
 `sudo mkdir /media/linuxiso` or `mkdir /home/username/linuxiso`
 
-### Step 2: Create a credentials file
+### Step 3: Create a credentials file
 We create a credentials file to prevent us from having to save the credentials directly in the fstab file. We will store this in the home folder
 
 #### Open new file in editor
@@ -101,6 +106,8 @@ Create a new automount setting file. Follow the naming convention where the name
 
 `sudo nano /etc/systemd/system/media-linuxiso.mount`
 
+
+
 #### Input the automount settings
 The following is list of items you would put in your share folder automount settings:
 
@@ -135,80 +142,27 @@ Save the file using `Ctrl`+`o` and exit the editor using `Ctrl` + `x`
 ### Step 3: Enable and start the service
 Enable the service using `sudo systemctl daemon-reload`.
 
-Start the service using `sudo systemctl enable home-user-mnt-samba.automount --now`
-
-### Optional: Mount and unmount from user
-#### Note
-You can put the mount and automount settings file as well as the folders in the home folder if you want to access everything via your user permissions. In this example, we will create and mount a share in the linuxiso folder in our shared folder inside our home folder.
-
-#### Create share folder
-`mkdir ~/shares/linuxiso`
-
-#### Create and save the mount settings files
-We will store the mount and automount settings files in our `.config` folder
-
-`nano ~/.config/systemd/user/home-username-shares-linuxiso.mount`
-
-Input the settings
-```
-[Unit]
-Description=linux isos share folder on my unraid
-
-[Mount]
-What=//tower.local/linuxisos
-Where=/home/username/shares/linuxiso
-Type=cifs
-Options=rw,file_mode=0700,dir_mode=0700,uid=1000,credentials=/home/username/.smbcredentials
-DirectoryMode=0700
-
-[Install]
-WantedBy=default.target
-```
-
-Save the file using `Ctrl`+`o` and exit the editor using `Ctrl` + `x`
-
-#### Create and save the automount settings files
-
-`nano ~/.config/systemd/user/home-username-shares-linuxiso.automount`
-
-Input the settings
-```
-[Unit]
-Description=automount linux isos share folder on my unraid
-
-[Automount]
-Where=/home/username/shares/linuxiso
-TimeoutIdleSec=120
-
-[Install]
-WantedBy=default.target
-```
-
-Save the file using `Ctrl`+`o` and exit the editor using `Ctrl` + `x`
-
-#### Enable and start the service
-Reload the systemctl daemon: `systemctl --user daemon-reload`
-Enable and start the automount: `systemctl --user enable home-user-mnt-samba.automount --now`
+Start the service using `sudo systemctl enable media-linuxiso.automount --now`
 
 ### Troubleshooting
-Check mount status: `systemctl status home-user-mnt-samba.mount`
-Check automount status: `systemctl status home-user-mnt-samba.automount`
+Chec status:
+Check mount status: `systemctl status media-linuxiso.mount`
+Check automount status: `systemctl status media-linuxiso.automount`
 
+Check logs:
 View system logs: `journalctl -xe`
+
+Hide duplicate of shares in file explorer in gnome:
+Add `x-gvfs-hide` option to systemd options: `Options=rw,file_mode=0700,dir_mode=0700,uid=<your_numeric_uid>,credentials=/home/<your_linux_username>/.smbcredentials,x-gvfs-hide`
 
 ---
 
 ## FSTab Method
-### Step 1: Install CIFS Utils package
-
-Ubuntu: `sudo apt-get install cifs-utils`
-Fedora: `sudo dnf install cifs-utils`
-
-### Step 2: Add settings to fstab file
+### Step 1: Add settings to fstab file
 #### Open fstab file with root
 `sudo nano /etc/fstab`
 
-#### Step 3: Add entry
+#### Step 2: Add entry
 `//<ip>/<sharename> /<folder>/<sharedfolder> cifs uid=<your_numeric_uid>,gid=<your_numeric_gid>,credentials=/home/<your_linux_username>/.smbcredentials,vers=3.1.1,sec=ntlmssp,cache=strict,rw,_netdev 0 0`
 
 Examples supported include:
@@ -228,10 +182,10 @@ Note on options
 Other options that may be helpful:
 
 
-#### Step 4: Save and exit
+#### Step 3: Save and exit
 Save the file using `Ctrl`+`o` and exit the editor using `Ctrl` + `x`
 
-### Step 5: Mount folder
+### Step 4: Mount folder
 `sudo mount /<folder>/<share_folder>`
 
 or to mount all folders at once:

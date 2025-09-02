@@ -7,3 +7,6 @@ Windows might ask you to "Enter network credentials" even when you try to add yo
 3. Tick 'remember my credentials'
 
 This should work and windows should not ask you for the credentials again, but if it does, go to the windows credential manager and create/save those credentials.
+
+Note:
+Windows 11 onwards may enforce proper credentials for shares. If that is the case, create a user for the shares and use that for the credentials

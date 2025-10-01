@@ -104,7 +104,7 @@ Save the file using `Ctrl`+`o` and exit the editor using `Ctrl` + `x`
 #### Create a new automount file
 Create a new automount setting file. Follow the naming convention where the name matches the mount point(`/etc/systemd/system/<folder>-<share_folder>.automount):
 
-`sudo nano /etc/systemd/system/media-linuxiso.mount`
+`sudo nano /etc/systemd/system/media-linuxiso.automount`
 
 
 
